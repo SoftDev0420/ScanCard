@@ -16,10 +16,10 @@ import com.cosential.cardreader.R;
 
 public class BaseActivity extends Activity {
 
-    protected TextView title;
-    protected LinearLayout topLeftButtonLayout, topRightButtonLayout;
-    protected Button topLeftButton, topRightButton;
-    protected ImageButton topLeftImageButton, topRightImageButton;
+    protected TextView txtTitle;
+    protected LinearLayout llLeft, llRight;
+    protected Button btnLeft, btnRight;
+    protected ImageButton btnLeftImage, btnRightImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,69 +35,69 @@ public class BaseActivity extends Activity {
     }
 
     protected void setupNavigationBar() {
-        title = (TextView) findViewById(R.id.topBarTitle);
-        topLeftButtonLayout = (LinearLayout) findViewById(R.id.topLeftButtonLayout);
-        topLeftButton = (Button) findViewById(R.id.topBarLeftButton);
-        topLeftImageButton = (ImageButton) findViewById(R.id.topBarLeftImageButton);
-        topRightButtonLayout = (LinearLayout) findViewById(R.id.topRightButtonLayout);
-        topRightButton = (Button) findViewById(R.id.topBarRightButton);
-        topRightImageButton = (ImageButton) findViewById(R.id.topBarRightImageButton);
+        txtTitle = (TextView) findViewById(R.id.topBarTitle);
+        llLeft = (LinearLayout) findViewById(R.id.topLeftButtonLayout);
+        btnLeft = (Button) findViewById(R.id.topBarLeftButton);
+        btnLeftImage = (ImageButton) findViewById(R.id.topBarLeftImageButton);
+        llRight = (LinearLayout) findViewById(R.id.topRightButtonLayout);
+        btnRight = (Button) findViewById(R.id.topBarRightButton);
+        btnRightImage = (ImageButton) findViewById(R.id.topBarRightImageButton);
     }
 
     protected void setTitle(String text) {
-        title.setText(text);
+        txtTitle.setText(text);
     }
 
     protected void setTopLeftButtonImage(int imageResId) {
-        topLeftButton.setVisibility(View.GONE);
-        topLeftImageButton.setImageResource(imageResId);
-        topLeftImageButton.setVisibility(View.VISIBLE);
+        btnLeft.setVisibility(View.GONE);
+        btnLeftImage.setImageResource(imageResId);
+        btnLeftImage.setVisibility(View.VISIBLE);
     }
 
     protected void setTopLeftButtonText(String text) {
-        topLeftButton.setText(text);
-        topLeftButton.setVisibility(View.VISIBLE);
-        topLeftImageButton.setVisibility(View.GONE);
+        btnLeft.setText(text);
+        btnLeft.setVisibility(View.VISIBLE);
+        btnLeftImage.setVisibility(View.GONE);
     }
 
     protected void setTopLeftButtonVisibility(int visibility) {
-        topLeftButtonLayout.setVisibility(visibility);
+        llLeft.setVisibility(visibility);
     }
 
     protected void setTopRightButtonImage(int imageResId) {
-        topRightButton.setVisibility(View.GONE);
-        topRightImageButton.setImageResource(imageResId);
-        topRightImageButton.setVisibility(View.VISIBLE);
+        btnRight.setVisibility(View.GONE);
+        btnRightImage.setImageResource(imageResId);
+        btnRightImage.setVisibility(View.VISIBLE);
     }
 
     protected void setTopRightButtonText(String text) {
-        topRightButton.setText(text);
-        topRightButton.setVisibility(View.VISIBLE);
-        topRightImageButton.setVisibility(View.GONE);
+        btnRight.setText(text);
+        btnRight.setVisibility(View.VISIBLE);
+        btnRightImage.setVisibility(View.GONE);
     }
 
     protected void setTopRightButtonVisibility(int visibility) {
-        topRightButtonLayout.setVisibility(visibility);
+        llRight.setVisibility(visibility);
     }
 
     protected void adjustTopBarLayout() {
-        final LinearLayout topBarLayout = (LinearLayout)findViewById(R.id.topBarLayout);
-        ViewTreeObserver vto = topBarLayout.getViewTreeObserver();
+        final LinearLayout layout = (LinearLayout)findViewById(R.id.topBarLayout);
+        ViewTreeObserver vto = layout.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                topBarLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                int leftWidth = topLeftButtonLayout.getWidth();
-                int rightWidth = topRightButtonLayout.getWidth();
-                LinearLayout.LayoutParams leftLayoutParams = (LinearLayout.LayoutParams) topLeftButtonLayout.getLayoutParams();
-                LinearLayout.LayoutParams rightLayoutParams = (LinearLayout.LayoutParams) topRightButtonLayout.getLayoutParams();
+                layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                int leftWidth = llLeft.getWidth();
+                int rightWidth = llRight.getWidth();
+                LinearLayout.LayoutParams lpLeft = (LinearLayout.LayoutParams) llLeft.getLayoutParams();
+                LinearLayout.LayoutParams lpRight = (LinearLayout.LayoutParams) llRight.getLayoutParams();
                 if (leftWidth > rightWidth) {
-                    rightLayoutParams.width = leftWidth;
-                    topRightButtonLayout.setLayoutParams(rightLayoutParams);
+                    lpRight.width = leftWidth;
+                    llRight.setLayoutParams(lpRight);
                 }
                 else {
-                    leftLayoutParams.width = rightWidth;
-                    topLeftButtonLayout.setLayoutParams(leftLayoutParams);
+                    lpLeft.width = rightWidth;
+                    llLeft.setLayoutParams(lpLeft);
                 }
             }
         });

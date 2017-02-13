@@ -1,5 +1,6 @@
 package com.cosential.cardreader.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginButton:
-
+                login();
                 break;
             case R.id.checkBox:
                 updateRememberStatus();
@@ -38,6 +39,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     ////////////////////////////////
+
+    public void login() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+    }
 
     public void updateRememberStatus() {
         bRemember = !bRemember;
